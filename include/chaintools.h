@@ -1,5 +1,5 @@
-#ifndef CHAINOPY_H
-#define CHAINOPY_H
+#ifndef CHAITOOLS_H
+#define CHAITOOLS_H
 
 typedef struct {
     int num_states;

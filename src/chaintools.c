@@ -1,5 +1,5 @@
-#include "chainopy.h"
-#include "utils.h"
+#include "../include/chaintools.h"
+#include "../include/utils.h"
 
 #include <stdio.h>
 #include <stdlib.h>
