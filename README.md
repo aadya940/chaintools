@@ -27,3 +27,10 @@ Use `make` to compile the library:
 ```bash
 make
 ```
+
+### Usage
+
+```
+#include "include/chaintools.h"
+```
+
