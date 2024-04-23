@@ -22,3 +22,8 @@ Install GNU Scientific Library:
 ```bash
 sudo apt-get install libgsl-dev
 ```
+
+Use `make` to compile the library:
+```bash
+make
+```
