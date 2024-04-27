@@ -31,6 +31,10 @@ make
 ### Usage
 
 ```
-#include "include/chaintools.h"
+#include "chaintools.h"
 ```
 
+Compile the file as follows:
+```
+gcc -o your_program your_program.c -L/path/to/libchaintools -lchaintools -lgsl -lgslcblas -lm
+```
