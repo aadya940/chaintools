@@ -9,7 +9,7 @@ chaintools is a C library for working with Markov chains, providing functionalit
 - Predict next states in the chain based on initial states.
 - Simple and intuitive interface.
 
-## Installation
+## Installation on linux
 
 Clone the repository:
 
@@ -17,7 +17,7 @@ Clone the repository:
 git clone https://github.com/yourusername/chaintools.git
 ```
 
-Install GNU Scientific Library:
+Install GNU Scientific Library: 
 
 ```bash
 sudo apt-get install libgsl-dev
