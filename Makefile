@@ -4,7 +4,7 @@ LIBS=-lgsl -lgslcblas -lm
 
 LIBRARY=libchaintools.a
 
-SRCS=src/chaintools.c src/utils.c
+SRCS=$(wildcard src/*.c)
 OBJS=$(SRCS:.c=.o)
 
 all: $(LIBRARY)

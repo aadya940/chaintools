@@ -26,6 +26,7 @@ set_transition_matrix()
 FUNCTIONS
 ---------
 predict()
+simulate()
 */
 
 #define MAX_UNIQUE_WORD_LIMIT 800
@@ -93,6 +94,8 @@ char** predict(markovchain* chain, int n_steps, char* initial_state){
         int __idx = __argmax_gsl(vector);
         memcpy(_temp_results, &__idx, sizeof(int));
         initial_vector = __build_vector_from_state(chain, __idx);
+
+        gsl_vector_free(vector);
     }
 
     for(int i = 0; i < n_steps; i++){
@@ -209,3 +212,60 @@ markovchain* create_chain_from_file(char* fname) {
 
     return chain;
 };
+
+char** simulate(markovchain* chain, int n_steps, char* initial_state) {
+    char** _sim_results = (char**)malloc(n_steps * sizeof(char*));
+    int* _temp_results = (int*)malloc(n_steps * sizeof(int));
+
+    if (_sim_results == NULL) {
+        fprintf(stderr, "Failed to allocate Memory for the Matrix.");
+        exit(EXIT_FAILURE);
+    }
+
+    if (_temp_results == NULL) {
+        fprintf(stderr, "Failed to allocate Memory for the Matrix.");
+        exit(EXIT_FAILURE);
+    }
+
+    int __idx = __get_index(chain, initial_state);
+    memcpy(_temp_results, &__idx, sizeof(int));
+
+    gsl_matrix* tpm = __array_to_gsl_matrix(chain->tpm, chain->num_states, chain->num_states);
+    gsl_matrix* initial_vector = __build_vector_from_state(chain, __idx);
+
+    for(int i = 1; i < n_steps; i++){
+        gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, initial_vector, tpm, 0, initial_vector);
+        gsl_vector* vector = gsl_vector_alloc(chain->num_states);
+        gsl_matrix_get_row(vector, initial_vector, 0);
+        
+        double rand_val = (double)rand() / RAND_MAX; 
+        double cumulative_prob = 0.0;
+        int j;
+        
+        for (j = 0; j < chain->num_states; j++) {
+            cumulative_prob += gsl_vector_get(vector, j);
+            if (rand_val < cumulative_prob) {
+                __idx = j;
+                break;
+            }        
+        }
+
+        if (j == chain->num_states) 
+            __idx = chain->num_states - 1;
+        
+        memcpy(&_temp_results[i], &__idx, sizeof(int));
+        initial_vector = __build_vector_from_state(chain, __idx);
+
+        gsl_vector_free(vector);
+    }
+
+    for(int i = 0; i < n_steps; i++){
+        int j = _temp_results[i];
+        char* value = chain->states[j];
+        _sim_results[i] = (char*)malloc((strlen(value) + 1) * sizeof(char));
+        strcpy(_sim_results[i], value);
+    }
+    
+    free(_temp_results);
+    return _sim_results;
+}
