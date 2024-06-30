@@ -38,3 +38,18 @@ Compile the file as follows:
 ```
 gcc -o your_program your_program.c -L/path/to/libchaintools -lchaintools -lgsl -lgslcblas -lm
 ```
+
+### Installation of Python API
+
+After compiling `chaintools` to `libchaintools.a`, head to the `python/pychaintools` where `setup.py` exists.
+
+- Execute as follows:
+```bash
+python setup.py build_ext --inplace
+pip install .
+```
+
+- Check Installation by run `test.py` in `lib`
+```
+python test.py
+```
