@@ -14,5 +14,4 @@ char** predict(markovchain* chain, int n_steps, char* initial_state);
 markovchain* create_chain_from_file(char* fname);
 char** simulate(markovchain* chain, int n_steps, char* initial_state);
 
-
 #endif /* CHAINOPY_H */
