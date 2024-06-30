@@ -1,5 +1,8 @@
 from setuptools import setup, Extension
 import numpy as np
+import shutil
+import glob
+import os
 
 extension_mod = Extension(
     "chain_lib",
@@ -26,3 +29,13 @@ setup(
     ext_modules=[extension_mod],
     install_requires=["numpy"],  # Ensure numpy is installed
 )
+
+try:
+    shutil.move(glob.glob("*.so")[0], "./lib/")
+except:
+    pass
+
+try:
+    shutil.move(glob.glob("*.dll")[0], "./lib/")
+except:
+    pass
