@@ -8,6 +8,7 @@ chaintools is a C library for working with Markov chains, providing functionalit
 - Set transition matrices for the Markov chains.
 - Predict next states in the chain based on initial states.
 - Simple and intuitive interface.
+- Extend the Python Interpreter for Fast Algorithms
 
 ## Installation on linux
 
