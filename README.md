@@ -4,13 +4,15 @@ chaintools is a C library for working with Markov chains, providing functionalit
 
 ## Features
 
-- Create Markov chains from scratch or from input files.
-- Set transition matrices for the Markov chains.
-- Predict next states in the chain based on initial states.
-- Simple and intuitive interface.
-- Extend the Python Interpreter for Fast Algorithms
+- Create Markov chains with text-based states
+- Build chains automatically from text files
+- Set custom transition probability matrices
+- Two prediction modes:
+  - Deterministic prediction using `predict()`
+  - Stochastic simulation using `simulate()`
+- Efficient matrix operations using GNU Scientific Library (GSL)
 
-## Installation on linux
+## Installation on Linux
 
 Clone the repository:
 
@@ -31,12 +33,26 @@ make
 
 ### Usage
 
-```
+Include the library in your C program:
+```c
 #include "chaintools.h"
+
+// Create a chain from states
+char* states[] = {"A", "B", "C"};
+markovchain chain = create_chain(states, 3);
+
+// Or create from text file
+markovchain* chain = create_chain_from_file("input.txt");
+
+// Make predictions
+char** prediction = predict(&chain, 5, "A");
+
+// Or run simulations
+char** simulation = simulate(&chain, 5, "A");
 ```
 
-Compile the file as follows:
-```
+Compile your program as follows:
+```bash
 gcc -o your_program your_program.c -L/path/to/libchaintools -lchaintools -lgsl -lgslcblas -lm
 ```
 
@@ -44,13 +60,13 @@ gcc -o your_program your_program.c -L/path/to/libchaintools -lchaintools -lgsl -
 
 After compiling `chaintools` to `libchaintools.a`, head to the `python/pychaintools` where `setup.py` exists.
 
-- Execute as follows:
+Execute as follows:
 ```bash
 python setup.py build_ext --inplace
 pip install .
 ```
 
-- Check Installation by run `test.py` in `lib`
-```
+Check installation by running `test.py` in `lib`:
+```bash
 python test.py
 ```
