@@ -17,7 +17,7 @@ chaintools is a C library for working with Markov chains, providing functionalit
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/chaintools.git
+git clone https://github.com/aadya940/chaintools.git
 ```
 
 Install GNU Scientific Library: 
